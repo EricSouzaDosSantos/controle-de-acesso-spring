@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UsuarioService {
 
@@ -17,11 +19,32 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
 
-    public void cadastraeUsuario(UsuarioDTO usuarioDTO){
+    public void cadastrarUsuario(UsuarioDTO usuarioDTO){
         Usuario usuario = new Usuario();
         usuario.setNome(usuarioDTO.nome());
         usuario.setTelefone(usuarioDTO.telefone());
         usuario.setEmail(usuarioDTO.email());
         usuarioRepository.save(usuario);
+    }
+
+    public void atualizarUsuario(UsuarioDTO usuarioDTO, Long id){
+        Usuario usuario = buscarUsuarioPeloId(id);
+        usuario.setNome(usuarioDTO.nome());
+        usuario.setTelefone(usuarioDTO.telefone());
+        usuario.setEmail(usuarioDTO.email());
+        usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> listarUsuarios(){
+        return usuarioRepository.findAll();
+    }
+
+    public void deletarUsuario(Long id){
+        usuarioRepository.deleteById(id);
+    }
+
+    public Usuario buscarUsuarioPeloId(Long id){
+        return usuarioRepository.findById(id)
+                .orElseThrow();
     }
 }
