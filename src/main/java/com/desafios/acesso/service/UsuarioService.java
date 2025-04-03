@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsuarioService {
@@ -34,6 +35,12 @@ public class UsuarioService {
         usuario.setIdAcesso(usuarioDTO.idAcesso());
         usuario.setTelefone(usuarioDTO.telefone());
         usuario.setEmail(usuarioDTO.email());
+        usuarioRepository.save(usuario);
+    }
+
+    public void cadastrarIdAcesso(UUID idAcesso, Long id){
+        Usuario usuario = buscarUsuarioPeloId(id);
+        usuario.setIdAcesso(idAcesso);
         usuarioRepository.save(usuario);
     }
 
