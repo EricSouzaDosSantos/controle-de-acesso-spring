@@ -22,6 +22,7 @@ public class UsuarioService {
     public void cadastrarUsuario(UsuarioDTO usuarioDTO){
         Usuario usuario = new Usuario();
         usuario.setNome(usuarioDTO.nome());
+        usuario.setIdAcesso(usuarioDTO.idAcesso());
         usuario.setTelefone(usuarioDTO.telefone());
         usuario.setEmail(usuarioDTO.email());
         usuarioRepository.save(usuario);
@@ -30,6 +31,7 @@ public class UsuarioService {
     public void atualizarUsuario(UsuarioDTO usuarioDTO, Long id){
         Usuario usuario = buscarUsuarioPeloId(id);
         usuario.setNome(usuarioDTO.nome());
+        usuario.setIdAcesso(usuarioDTO.idAcesso());
         usuario.setTelefone(usuarioDTO.telefone());
         usuario.setEmail(usuarioDTO.email());
         usuarioRepository.save(usuario);
