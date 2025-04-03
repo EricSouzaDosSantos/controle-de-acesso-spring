@@ -1,4 +1,6 @@
 package com.desafios.acesso.dtos;
 
-public record UsuarioDTO(String nome, String telefone, String email) {
+import java.util.UUID;
+
+public record UsuarioDTO(String nome, UUID idAcesso, String telefone, String email) {
 }
