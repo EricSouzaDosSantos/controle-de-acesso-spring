@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -41,12 +40,12 @@ public class UsuarioController {
     }
 
     @PutMapping("/idAcesso/{id}")
-    public ResponseEntity<Void> cadastrarIdAcesso(@PathVariable long id, @RequestBody String topico) {
-        clienteMQTT.assinarTopicoEIniciarEscuta(topico, mensagem -> {
-            System.out.println("Mensagem Recebida via API: " + mensagem);
-            usuarioService.cadastrarIdAcesso(UUID.fromString(mensagem), id);
-        });
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> cadastrarIdAcesso(@PathVariable long id,
+                                                   @RequestParam String topico,
+                                                   @RequestParam String mensagem) {
+
+        usuarioService.aguardarCadastroDoIdAcesso(topico, mensagem, id);
+        return ResponseEntity.ok("Aguardando UUID via MQTT...");
     }
 
     @PutMapping("/{id}")
